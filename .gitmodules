@@ -1,7 +1,6 @@
 [submodule "testo"]
 	path = testo
 	url = git@github.com:michbelle/tesi_mag_testo.git
-
 [submodule "src/mini_rover_code"]
 	path = src/mini_rover_code
 	url = git@github.com:michbelle/mini_rover_code.git
