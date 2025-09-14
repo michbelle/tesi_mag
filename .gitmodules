@@ -1,15 +1,20 @@
 [submodule "testo"]
 	path = testo
 	url = git@github.com:michbelle/tesi_mag_testo.git
+	branch = master
 [submodule "src/mini_rover_code"]
 	path = src/mini_rover_code
 	url = git@github.com:michbelle/mini_rover_code.git
+	branch = humble
 [submodule "src/rmf_server"]
 	path = src/rmf_server
 	url = git@github.com:michbelle/RMF_server.git
+	branch = jazzy
 [submodule "src/jobot_driver_ros2"]
 	path = src/jobot_driver_ros2
 	url = git@github.com:michbelle/jobot_driver_ros2.git
+	branch = jazzy
 [submodule "src/DStar_Trajectory_Planner"]
 	path = src/DStar_Trajectory_Planner
 	url = git@github.com:ElettraSciComp/DStar-Trajectory-Planner.git
+	branch = jazzy

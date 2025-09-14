@@ -1,15 +1,17 @@
 {
-    "name": "ROS 2 Development Container",
+    "name": "ROS 2 dev Container",
     "privileged": true,
-    "remoteUser": "michelebelletti",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "args": {
-            "USERNAME": "michelebelletti"
-        }
-    },
-    "workspaceFolder": "/home/ws/",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws/,type=bind",
+    "image": "rmf_all_imagev1.1",
+    "remoteUser": "root",
+    // "build": {
+    //     "dockerfile": "Dockerfile_old"
+    //     ,
+    //     "args": {
+    //         "USERNAME": "michelebelletti"
+    //     }
+    // },
+    "workspaceFolder": "/root/ff_ws/",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/root/ff_ws/,type=bind",
     "customizations": {
         "vscode": {
             "extensions":[
@@ -25,18 +27,19 @@
     },
     "containerEnv": {
         "DISPLAY": "unix:0",
-        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST", //from jazzy doc is defined
         "ROS_DOMAIN_ID": "42"
     },
     "runArgs": [
         "--net=host",
         "--pid=host",
         "--ipc=host",
-        "-e", "DISPLAY=${env:DISPLAY}"
+        "-e", "DISPLAY=${env:DISPLAY}",
+        "--name=rmf_all_imagev1.2"
     ],
     "mounts": [
        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /home/ws/ && colcon build --symlink-install"
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /root/ff_ws/ && colcon build --symlink-install"
 }
