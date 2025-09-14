@@ -1,3 +1,6 @@
 build/
 install/
 log/
+rosbags/jobot/jobot_record_*
+rosbags/mini/mini_record_*
+
