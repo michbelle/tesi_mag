@@ -5,7 +5,7 @@
 [submodule "src/mini_rover_code"]
 	path = src/mini_rover_code
 	url = git@github.com:michbelle/mini_rover_code.git
-	branch = humble
+	branch = jazzy
 [submodule "src/rmf_server"]
 	path = src/rmf_server
 	url = git@github.com:michbelle/RMF_server.git
