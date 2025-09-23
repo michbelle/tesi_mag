@@ -1,0 +1,7 @@
+ros2 launch tesi_code 0s_ign_spawn_world_gazebo.launch.py
+
+ros2 launch tesi_code 1s_ign_spawn_jobot_gazebo.launch.py
+
+ros2 launch tesi_code 1s_ign_spawn_mini_gazebo.launch.py
+
+ros2 launch tesi_code 
