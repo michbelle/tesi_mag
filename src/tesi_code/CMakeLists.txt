@@ -27,7 +27,7 @@ install(PROGRAMS
 
 install(DIRECTORY
   launch
-  rviz
+  ign_world
   DESTINATION share/${PROJECT_NAME})
   
 
