@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/root/ff_ws/install/jobot_driver_ros2/include/**",
+        "/root/ff_ws/install/serial/include/**",
+        "/root/ff_ws/install/jobot_msgs/include/**",
+        "/root/ff_ws/install/dstar_global_planner/include/**",
+        "/opt/ros/jazzy/include/**",
+        "/root/ff_ws/src/DStar_Trajectory_Planner/include/**",
+        "/root/ff_ws/src/jobot_driver_ros2/src/jobot_driver_ros2/include/**",
+        "/root/ff_ws/src/jobot_driver_ros2/src/serial-ros2/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

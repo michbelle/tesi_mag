@@ -19,3 +19,10 @@ else
 ```bash
 git submodule update --recursive
 ```
+
+
+## build comand
+
+```bash
+colcon build --symlink-install
+```

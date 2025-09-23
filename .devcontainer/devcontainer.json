@@ -17,11 +17,11 @@
             "extensions":[
                 "ms-vscode.cpptools",
                 "ms-vscode.cpptools-themes",
+                "ms-vscode.cpptools-extension-pack",
                 "twxs.cmake",
-                "donjayamanne.python-extension-pack",
-                "eamodio.gitlens",
-                "ms-iot.vscode-ros",
-                "ms-vscode.cpptools-extension-pack"
+                "ms-python.python",
+                // "donjayamanne.python-extension-pack",
+                "ranch-hand-robotics.rde-ros-2"
             ]
         }
     },
@@ -35,11 +35,12 @@
         "--pid=host",
         "--ipc=host",
         "-e", "DISPLAY=${env:DISPLAY}",
-        "--name=rmf_all_imagev1.2"
+        "--name=serverNavRos",
+        "--runtime=nvidia","--gpus","all","-e","NVIDIA_DRIVER_CAPABILITIES=all",
+        "--device=/dev/dri:/dev/dri"
     ],
     "mounts": [
-       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-       "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
+       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /root/ff_ws/ && colcon build --symlink-install"
+    "postCreateCommand": "bash"
 }
