@@ -3,7 +3,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, AppendEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
 
@@ -40,11 +40,7 @@ def generate_launch_description():
     #add general path for simulation 
     
     new_path = PathJoinSubstitution([get_package_share_directory("tesi_code"), 'ign_world', world, "modelOUT"])
-    # new_path = os.path.join([get_package_share_directory("tesi_code"), 'ign_world', world, world_name])
-    current_path = os.environ.get('GZ_SIM_RESOURCE_PATH', '')
-    if current_path:
-        new_path = f"{current_path}:{new_path}"
-    set_env_cmd=SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', new_path)
+    set_env_cmd=AppendEnvironmentVariable('GZ_SIM_RESOURCE_PATH', new_path)
     
     
     
@@ -71,8 +67,8 @@ def generate_launch_description():
     ld.add_action(headless_dcl)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_world_cmd)
-    ld.add_action(declare_world_name_cmd)
     ld.add_action(set_env_cmd)
+    ld.add_action(declare_world_name_cmd)
 
     # Launch Gazebo
     ld.add_action(gz_sim)
