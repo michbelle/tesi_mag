@@ -16,5 +16,5 @@
 	branch = jazzy
 [submodule "src/DStar_Trajectory_Planner"]
 	path = src/DStar_Trajectory_Planner
-	url = git@github.com:ElettraSciComp/DStar-Trajectory-Planner.git
+	url = git@github.com:michbelle/DStar-Trajectory-Planner.git
 	branch = jazzy
