@@ -1,2 +1,0 @@
-FROM rmf_all_imagev1.1
-RUN echo "using old docker image"

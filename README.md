@@ -26,3 +26,16 @@ git submodule update --recursive
 ```bash
 colcon build --symlink-install
 ```
+
+### devcontainer
+
+start ssh agent
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/
+```
+
+then run
+```bash
+DOCKER_BUILDKIT=1 docker build -t test2 . --ssh default
+```
