@@ -20,6 +20,10 @@ else
 git submodule update --recursive --remote
 ```
 
+```bash
+git pull --recurse-submodules
+```
+
 
 ## build comand
 
