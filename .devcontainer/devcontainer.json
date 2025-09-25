@@ -1,18 +1,10 @@
 {
     "name": "ROS 2 dev Container",
     "privileged": true,
-    // "image": "rmf_all_imagev1.1",
+    "image": "tesi_image",
     "remoteUser": "root",
-    "build": {
-        "dockerfile": "Dockerfile"
-        ,
-        // "options": [
-        //     "--ssh default"
-        // ],
-        "ssh": "default"
-    },
-    "workspaceFolder": "/root/ff_ws/",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/root/ff_ws/,type=bind",
+    "workspaceFolder": "/root/openRMF_ws/",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/root/openRMF_ws/,type=bind",
     "customizations": {
         "vscode": {
             "extensions":[

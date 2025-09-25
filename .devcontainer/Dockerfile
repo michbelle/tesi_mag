@@ -49,18 +49,17 @@ RUN echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" |
 
 #install free fleet and personal code
 
-RUN mkdir -p ~/openRMF_ws/src && cd ~/openRMF_ws/src 
+RUN mkdir -p ~/openRMF_ws/src
 
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-RUN --mount=type=ssh git clone -b master --recurse-submodules git@github.com:michbelle/tesi_mag.git
+RUN --mount=type=ssh git clone -b master --recurse-submodules git@github.com:michbelle/tesi_mag.git ~/openRMF_ws/src
 
 RUN apt update \
     && cd ~/openRMF_ws \
     && rosdep install --from-paths src --ignore-src --rosdistro jazzy -yr \
     && /bin/bash -c "source /opt/ros/jazzy/setup.bash; colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release" \
     && echo "source ~/openRMF_ws/install/setup.bash" >> ~/.bashrc
-    # && git clone -b master --recurse-submodules https://github.com/michbelle/tesi_mag.git \
 
 #install D-start-trajectory-planner
 # RUN cd ~/openRMF_ws/src \

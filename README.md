@@ -32,10 +32,10 @@ colcon build --symlink-install
 start ssh agent
 ```bash
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/
+ssh-add ~/.ssh/id_ecdsa
 ```
 
 then run
 ```bash
-DOCKER_BUILDKIT=1 docker build -t test2 . --ssh default
+DOCKER_BUILDKIT=1 docker build -t tesi_image . --ssh default
 ```
