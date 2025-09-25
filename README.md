@@ -17,7 +17,7 @@ git submodule update --init --recursive
 else
 
 ```bash
-git submodule update --recursive
+git submodule update --recursive --remote
 ```
 
 
@@ -56,3 +56,16 @@ docker run -it --rm  \
     tesi_image \
     bash
 ```
+
+
+### tmp commands
+# [submodule "src/jobot_driver_ros2"]
+# 	path = src/jobot_driver_ros2
+# 	url = git@github.com:michbelle/jobot_driver_ros2.git
+# 	branch = jazzy
+# [submodule "src/DStar_Trajectory_Planner"]
+# 	path = src/DStar_Trajectory_Planner
+# 	url = git@github.com:ElettraSciComp/DStar-Trajectory-Planner.git
+# 	branch = jazzy
+git submodule add -b jazzy git@github.com:michbelle/jobot_driver_ros2.git src/jobot_driver_ros2
+git submodule add -b jazzy git@github.com:ElettraSciComp/DStar-Trajectory-Planner.git src/DStar_Trajectory_Planner
