@@ -39,3 +39,20 @@ then run
 ```bash
 DOCKER_BUILDKIT=1 docker build -t tesi_image . --ssh default
 ```
+
+then launch the image with all build in with
+
+share x with:
+```bash
+xhost local:root
+```
+
+```bash
+docker run -it --rm  \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:ro --device=/dev/dri:/dev/dri -e DISPLAY=$DISPLAY \
+    --privileged \
+    --network host \
+    --name serverNavRos \
+    tesi_image \
+    bash
+```
