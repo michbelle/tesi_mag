@@ -49,17 +49,46 @@ ros2 launch jobot_launchpad Snav2_global.launch.py
 zenohd
 ```
 
-### launch zenoh server bridge
+### launch zenoh bridge server 
 ```bash
-zenohd
+/root/openRMF_ws/src/tesi_code/zenoh/simul_server_rmf_zenoh.sh
 ```
 
-### launch zenoh server
+### launch zenoh bridge mini
 ```bash
-zenohd
+/root/openRMF_ws/src/tesi_code/zenoh/simul_mini_zenoh.sh
 ```
 
-### launch zenoh server
+### launch zenoh bridge jobot
 ```bash
-zenohd
+/root/openRMF_ws/src/tesi_code/zenoh/simul_jobot_zenoh.sh
+```
+
+## rmf server
+
+### rmf core
+
+```bash
+export ROS_DOMAIN_ID=30
+ros2 launch rmf_server_elettra 0_rmf_core.launch.xml
+```
+
+### rmf api and dashboard
+
+to launch on server **outside of docker**
+
+```bash
+docker-compose -f <(curl -s https://raw.githubusercontent.com/michbelle/RMF_server/cb467cfdddeabfc3a877e32934d323016416cd2b/Docker_f/dockerCompose_api_dashboard/compose.yml) up
+```
+
+### rmf fleet adapter for mini
+```bash
+export ROS_DOMAIN_ID=30
+ros2 launch rmf_server_elettra 1rmf_mini_fleet_adapter.launch.xml server_uri:="ws://localhost:8000/_internal"
+```
+
+### rmf fleet adapter for mini
+```bash
+export ROS_DOMAIN_ID=30
+ros2 launch rmf_server_elettra 1rmf_jobot_fleet_adapter.launch.xml server_uri:="ws://localhost:8000/_internal"
 ```
