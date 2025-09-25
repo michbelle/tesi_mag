@@ -1,0 +1,23 @@
+{
+  plugins: {
+    ros2dds: {
+      namespace: "/",
+      deny: {
+        publishers: ["/rosout", "/parameter_events"],
+        subscribers: ["/rosout"],
+        service_servers: [".*/set_parameters"],
+        service_clients: [".*/set_parameters"],
+        action_servers: [],
+        action_clients: [],
+      },
+    },
+  },
+  // Zenoh related configurations
+  mode: "client", // client peer
+  connect: {
+    endpoints: []
+  },
+  listen: {
+    endpoints: []
+  },
+}

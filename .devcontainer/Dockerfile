@@ -49,11 +49,11 @@ RUN echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" |
 
 #install free fleet and personal code
 
-RUN mkdir -p ~/openRMF_ws/src
+RUN mkdir -p ~/openRMF_ws
 
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-RUN --mount=type=ssh git clone -b master --recurse-submodules git@github.com:michbelle/tesi_mag.git ~/openRMF_ws/src
+RUN --mount=type=ssh git clone -b master --recurse-submodules git@github.com:michbelle/tesi_mag.git ~/openRMF_ws
 
 RUN apt update \
     && cd ~/openRMF_ws \
