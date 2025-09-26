@@ -1,17 +1,10 @@
 {
     "name": "ROS 2 dev Container",
     "privileged": true,
-    "image": "rmf_all_imagev1.1",
+    "image": "tesi_image",
     "remoteUser": "root",
-    // "build": {
-    //     "dockerfile": "Dockerfile_old"
-    //     ,
-    //     "args": {
-    //         "USERNAME": "michelebelletti"
-    //     }
-    // },
-    "workspaceFolder": "/root/ff_ws/",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/root/ff_ws/,type=bind",
+    "workspaceFolder": "/root/openRMF_ws/",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/root/openRMF_ws/,type=bind",
     "customizations": {
         "vscode": {
             "extensions":[
@@ -40,7 +33,13 @@
         "--device=/dev/dri:/dev/dri"
     ],
     "mounts": [
-       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+       "source=${SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
     ],
-    "postCreateCommand": "bash"
+    "postCreateCommand": "bash",
+    "features": {},
+    "remoteEnv": {
+        "SSH_AUTH_SOCK": "/ssh-agent"
+    }
+
 }
