@@ -14,6 +14,25 @@ docker run -it --rm  \
     bash
 ```
 
+```bash
+docker run -it --rm  \
+    -v ~/code/tesi_mag:/root/openRMF_ws \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:ro --device=/dev/dri:/dev/dri -e DISPLAY=$DISPLAY \
+    --runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all \
+    --privileged \
+    --network host \
+    --name serverNavRos \
+    tesi_image \
+    bash
+```
+
+## build comand
+
+```bash
+colcon build --symlink-install
+```
+
+
 ### launch simul world
 
 ```bash
@@ -78,7 +97,7 @@ ros2 launch rmf_server_elettra 0_rmf_core.launch.xml
 to launch on server **outside of docker**
 
 ```bash
-docker-compose -f <(curl -s https://raw.githubusercontent.com/michbelle/RMF_server/cb467cfdddeabfc3a877e32934d323016416cd2b/Docker_f/dockerCompose_api_dashboard/compose.yml) up
+docker compose -f <(curl -s https://raw.githubusercontent.com/michbelle/RMF_server/cb467cfdddeabfc3a877e32934d323016416cd2b/Docker_f/dockerCompose_api_dashboard/compose.yml) up
 ```
 
 ### rmf fleet adapter for mini

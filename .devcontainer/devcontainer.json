@@ -33,13 +33,13 @@
         "--device=/dev/dri:/dev/dri"
     ],
     "mounts": [
-       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-       "source=${SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
+       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+    //    "source=${SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
     ],
     "postCreateCommand": "bash",
     "features": {},
     "remoteEnv": {
-        "SSH_AUTH_SOCK": "/ssh-agent"
+        // "SSH_AUTH_SOCK": "/ssh-agent"
     }
 
 }
