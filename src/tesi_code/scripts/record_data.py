@@ -143,6 +143,7 @@ class OdometryRecorder(Node):
                     writer = csv.writer(file)
                     writer.writerow(["Time (s)", "X (m) odom_base", "Y (m) odom_base", "heading odom_base", "X (m) map_odom", "Y (m) map_odom", "heading map_odom"])
                     writer.writerows(self.tf_data)
+
                     break
 
     def plot_data(self):
@@ -192,6 +193,7 @@ def main(args=None):
             rclpy.spin(odometry_recorder)
     except KeyboardInterrupt:
         pass
+
     if odometry_recorder.enable_recording_odom:
         odometry_recorder.save_data()
     if odometry_recorder.enable_plotting:
