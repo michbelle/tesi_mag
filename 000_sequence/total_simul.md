@@ -15,10 +15,9 @@ docker run -it --rm  \
 ```
 
 ```bash
-docker run -it --rm  \
-    -v ~/code/tesi_mag:/root/openRMF_ws \
+docker run -it \
+    -v .:/root/openRMF_ws \
     -v /tmp/.X11-unix:/tmp/.X11-unix:ro --device=/dev/dri:/dev/dri -e DISPLAY=$DISPLAY \
-    --runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all \
     --privileged \
     --network host \
     --name serverNavRos \

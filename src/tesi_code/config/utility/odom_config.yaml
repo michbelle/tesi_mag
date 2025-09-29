@@ -1,0 +1,11 @@
+odom_print:
+  ros__parameters:
+    odom_topic : "odometry/filtered"
+    # odom_topic : "odometry/wheels"
+    file_name : filtered_odom_data
+    names_file_to_plot: [
+      "raw_odom_data_000_real",
+      "filtered_odom_data_000_real",
+    ]
+    enable_recording : true
+    enable_plotting : false
