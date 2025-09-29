@@ -22,6 +22,7 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   scripts/record_odom_data.py
   scripts/calculate_path.py
+  scripts/record_data.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
