@@ -33,8 +33,7 @@
 		// "--device=/dev/dxg",
 		// "--device=/dev/dri/card0",
 		// "--device=/dev/dri/renderD128",
-		// "--gpus=all",
-		// "-e NVIDIA_DRIVER_CAPABILITIES=all"
+		// "--gpus=all"
 	],
 	"containerEnv": {
 		"DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
