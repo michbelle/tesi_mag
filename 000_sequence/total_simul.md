@@ -35,7 +35,7 @@ docker run -it \
         --security-opt=apparmor:unconfined \
         --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw \
         --volume=/mnt/wslg:/mnt/wslg \
-        --ipc=host \ 
+        --ipc=host \
         --volume=/run/user/1000:/run/user/1000 \
         -e DISPLAY=$DISPLAY \
         -e XAUTHORITY=$XAUTHORITY \
@@ -43,10 +43,10 @@ docker run -it \
         -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
         -e PULSE_SERVER=$PULSE_SERVER \
         -e LIBGL_ALWAYS_SOFTWARE=1 \
-        -v .:/home/ros/openRMF_ws \
         --user ros \
+        -v .:/openRMF_ws \
         --name serverNavRos \
-        tesi_image \
+        tesi_image_v3 \
         bash
 ```
 
@@ -94,17 +94,17 @@ zenohd
 
 ### launch zenoh bridge server 
 ```bash
-/root/openRMF_ws/src/tesi_code/zenoh/simul_server_rmf_zenoh.sh
+/openRMF_ws/src/tesi_code/zenoh/simul_server_rmf_zenoh.sh
 ```
 
 ### launch zenoh bridge mini
 ```bash
-/root/openRMF_ws/src/tesi_code/zenoh/simul_mini_zenoh.sh
+/openRMF_ws/src/tesi_code/zenoh/simul_mini_zenoh.sh
 ```
 
 ### launch zenoh bridge jobot
 ```bash
-/root/openRMF_ws/src/tesi_code/zenoh/simul_jobot_zenoh.sh
+/openRMF_ws/src/tesi_code/zenoh/simul_jobot_zenoh.sh
 ```
 
 ## rmf server

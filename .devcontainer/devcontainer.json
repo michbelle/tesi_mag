@@ -1,8 +1,8 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"dockerFile": "Dockerfile",
-    "image": "tesi_image_v2",
+	// "dockerFile": "Dockerfile",
+    "image": "tesi_image",
 	// "build": {
 	// 	"args": {
 	// 		"WORKSPACE": "${containerWorkspaceFolder}"
@@ -47,8 +47,8 @@
 		"LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
 	},
 	"remoteUser": "ros",
-    "workspaceFolder": "/home/ros/openRMF_ws/",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ros/openRMF_ws/,type=bind",
+    "workspaceFolder": "/openRMF_ws/",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/openRMF_ws/,type=bind",
 	// Set *default* container specific settings.json values on container create.
 	"customizations": {
 		"vscode": {

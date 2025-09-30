@@ -127,8 +127,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt update && apt install -y ros-jazzy-nav2-bringup \
-    && git clone -b jazzy https://github.com/ROBOTIS-GIT/turtlebot3_simulations /home/$USERNAME/turtlebot3_simulations \
-    && echo "export TURTLEBOT3_MODEL=waffle\nexport GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/$USERNAME/turtlebot3_simulations/turtlebot3_gazebo/models" >> /home/$USERNAME/.bashrc \
+    && git clone -b jazzy https://github.com/ROBOTIS-GIT/turtlebot3_simulations /turtlebot3_simulations \
+    && echo "export TURTLEBOT3_MODEL=waffle\nexport GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/turtlebot3_simulations/turtlebot3_gazebo/models" >> /home/$USERNAME/.bashrc \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -138,17 +138,17 @@ RUN curl -L https://download.eclipse.org/zenoh/debian-repo/zenoh-public-key | su
     && apt install -y systemctl zenoh unzip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /home/$USERNAME/openRMF_ws
+RUN mkdir -p /openRMF_ws
 
 RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-RUN --mount=type=ssh git clone -b master --recurse-submodules git@github.com:michbelle/tesi_mag.git /home/$USERNAME/openRMF_ws
+RUN --mount=type=ssh git clone -b master --recurse-submodules git@github.com:michbelle/tesi_mag.git /openRMF_ws
 
 RUN apt update \
-    && cd /home/$USERNAME/openRMF_ws \
+    && cd /openRMF_ws \
     && rosdep install --from-paths src --ignore-src --rosdistro jazzy -yr \
     && /bin/bash -c "source /opt/ros/jazzy/setup.bash; colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release" \
-    && echo "source /home/$USERNAME/openRMF_ws/install/setup.bash" >> /home/$USERNAME/.bashrc
+    && echo "source /openRMF_ws/install/setup.bash" >> /home/$USERNAME/.bashrc
     
 ###########################################################
 
