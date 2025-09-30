@@ -117,8 +117,11 @@ ENV AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS=1
 
 ###########################################################
 
+RUN apt update && apt-get upgrade -y && apt install -y vim tmux \
+    && rosdep update
+
 RUN apt-get update \
-    && apt-get upgrade -y  && apt-get -y install --no-install-recommends wget python3-pip python3-vcstool ros-jazzy-rmw-cyclonedds-cpp \
+    && apt-get -y install --no-install-recommends wget python3-pip python3-vcstool ros-jazzy-rmw-cyclonedds-cpp \
     && pip3 install nudged eclipse-zenoh==1.5.0 pycdr2 rosbags --break-system-packages \
     && echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp\nsource /opt/ros/jazzy/setup.bash" >> /home/$USERNAME/.bashrc \
     && apt install -y ros-jazzy-rmf-dev \
