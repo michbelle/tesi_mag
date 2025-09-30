@@ -64,7 +64,7 @@ class OdometryRecorder(Node):
         
         self.tf_data = []
 
-        self.filepath=os.path.join("/root","openRMF_ws","src","tesi_code", "result")
+        self.filepath=os.path.join("openRMF_ws","src","tesi_code", "result")
 
     def listener_callback_odom(self, msg):
         # Record odometry data
