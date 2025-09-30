@@ -43,6 +43,7 @@ docker run -it \
         -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
         -e PULSE_SERVER=$PULSE_SERVER \
         -e LIBGL_ALWAYS_SOFTWARE=1 \
+        --runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all \
         --user ros \
         -v .:/openRMF_ws \
         --name serverNavRos \
