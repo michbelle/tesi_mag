@@ -5,7 +5,8 @@ xhost local:root
 ```
 
 ```bash
-docker run -it --rm  \
+docker run -it \
+    -v .:/root/openRMF_ws \
     -v /tmp/.X11-unix:/tmp/.X11-unix:ro --device=/dev/dri:/dev/dri -e DISPLAY=$DISPLAY \
     --privileged \
     --network host \
@@ -24,6 +25,29 @@ docker run -it \
     --name serverNavRos \
     tesi_image \
     bash
+```
+
+```bash
+docker run -it \
+        --network=host \
+        --cap-add=SYS_PTRACE \
+        --security-opt=seccomp:unconfined \
+        --security-opt=apparmor:unconfined \
+        --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw \
+        --volume=/mnt/wslg:/mnt/wslg \
+        --ipc=host \ 
+        --volume=/run/user/1000:/run/user/1000 \
+        -e DISPLAY=$DISPLAY \
+        -e XAUTHORITY=$XAUTHORITY \
+        -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
+        -e XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
+        -e PULSE_SERVER=$PULSE_SERVER \
+        -e LIBGL_ALWAYS_SOFTWARE=1 \
+        -v .:/home/ros/openRMF_ws \
+        --user ros \
+        --name serverNavRos \
+        tesi_image \
+        bash
 ```
 
 ## build comand

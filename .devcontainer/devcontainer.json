@@ -1,45 +1,72 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-    "name": "ROS 2 dev Container",
-    "privileged": true,
-    "image": "tesi_image",
-    "remoteUser": "root",
-    "workspaceFolder": "/root/openRMF_ws/",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/root/openRMF_ws/,type=bind",
-    "customizations": {
-        "vscode": {
-            "extensions":[
-                "ms-vscode.cpptools",
-                "ms-vscode.cpptools-themes",
-                "ms-vscode.cpptools-extension-pack",
-                "twxs.cmake",
-                "ms-python.python",
-                // "donjayamanne.python-extension-pack",
-                "ranch-hand-robotics.rde-ros-2"
-            ]
-        }
-    },
-    "containerEnv": {
-        "DISPLAY": "unix:0",
-        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST", //from jazzy doc is defined
-        "ROS_DOMAIN_ID": "42"
-    },
-    "runArgs": [
-        "--net=host",
-        "--pid=host",
-        "--ipc=host",
-        "-e", "DISPLAY=${env:DISPLAY}",
-        "--name=serverNavRos",
-        "--runtime=nvidia","--gpus","all","-e","NVIDIA_DRIVER_CAPABILITIES=all",
-        "--device=/dev/dri:/dev/dri"
-    ],
-    "mounts": [
-       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
-    //    "source=${SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
-    ],
-    "postCreateCommand": "bash",
-    "features": {},
-    "remoteEnv": {
-        // "SSH_AUTH_SOCK": "/ssh-agent"
-    }
-
+	"dockerFile": "Dockerfile",
+    "image": "tesi_image_v2",
+	// "build": {
+	// 	"args": {
+	// 		"WORKSPACE": "${containerWorkspaceFolder}"
+	// 		// "USERNAME": "ros",
+	// 		// "USER_UID": "1000", //Change to match your UID
+	// 		// "USER_GID": "1000" // Change to match your GID
+	// 	},
+	// 	"options": ["--pull"]
+	// },
+	"runArgs": [
+		"--network=host",
+		"--cap-add=SYS_PTRACE",
+		"--security-opt=seccomp:unconfined",
+		"--security-opt=apparmor:unconfined",
+		// X11 host
+		"--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
+		// Wayland host
+		"--volume=/mnt/wslg:/mnt/wslg",
+		"--ipc=host",
+		// uncomment to use intel iGPU
+		// "--device=/dev/dri"
+		// Share user run time settings
+		"--volume=/run/user/1000:/run/user/1000" // Change 1000 to match your UID
+		// uncomment to use Nvidia GPU with Linux, https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+		// "--runtime=nvidia"
+		// uncomment to use Nvidia GPU with Windows WSL2
+		// "--volume=/usr/lib/wsl:/usr/lib/wsl",
+		// "--device=/dev/dxg",
+		// "--device=/dev/dri/card0",
+		// "--device=/dev/dri/renderD128",
+		// "--gpus=all"
+	],
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
+		"XAUTHORITY": "${localEnv:XAUTHORITY}",
+		// For Wayland
+		"WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+		"XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+		// "QT_QPA_PLATFORM": "wayland", // uncomment to force Wayland
+		// For audio
+		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+		"LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
+	},
+	"remoteUser": "ros",
+    "workspaceFolder": "/home/ros/openRMF_ws/",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ros/openRMF_ws/,type=bind",
+	// Set *default* container specific settings.json values on container create.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"althack.ament-task-provider",
+				"betwo.b2-catkin-tools",
+				"DotJoshJohnson.xml",
+				"ms-azuretools.vscode-docker",
+				"ms-python.autopep8",
+				"ms-python.python",
+				"ms-vscode.cpptools",
+				"Ranch-Hand-Robotics.rde-pack",
+				"redhat.vscode-yaml",
+				"streetsidesoftware.code-spell-checker",
+				"twxs.cmake",
+				"yzhang.markdown-all-in-one",
+				"zachflower.uncrustify"
+			]
+		}
+	}
 }
