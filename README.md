@@ -79,3 +79,14 @@ docker run -it \
 
 ```
 
+
+# temp
+```bash
+ros2 run rviz2 rviz2 -d /openRMF_ws/src/mini_rover_code/src/mini_launchpad/rviz/mini_nav.rviz
+
+ros2 bag play rosbags/mini/mini_record_007 --clock
+
+ros2 launch mini_launchpad Snav2_global.launch.py
+
+ros2 run tesi_code record_data.py
+```
