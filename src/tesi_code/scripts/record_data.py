@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
+from sensor_msgs.msg import Imu
+
 from pathlib import Path
 
 import math
@@ -56,11 +58,15 @@ class OdometryRecorder(Node):
 
         self.timer = self.create_timer(0.25, self.listener_callback_tf)
 
-        # self.subscription_tf = self.create_subscription(
-        #     Odometry,
-        #     self.odom_topic,
-        #     self.listener_callback_tf,
-        #     10)
+        self.imu_topic="/imu/data"
+
+        self.subscription_test = self.create_subscription(
+            Imu,
+            self.imu_topic,
+            self.listener_callback_imu,
+            10)
+        
+        self.imu_data=[]
         
         self.tf_data = []
 
@@ -69,8 +75,13 @@ class OdometryRecorder(Node):
     def listener_callback_odom(self, msg):
         # Record odometry data
         position = msg.pose.pose.position
-        heading = self.quaternion_to_yaw(msg.pose.pose.orientation)
+        _, _, heading = self.quaternion_to_yaw(msg.pose.pose.orientation)
         self.odometry_data.append((msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9, position.x, position.y, heading))
+
+    def listener_callback_imu(self, msg:Imu):
+        roll, pitch, heading = self.quaternion_to_yaw(msg.orientation)
+        yaw_vel = msg.angular_velocity.z
+        self.imu_data.append((msg.header.stamp.sec + msg.header.stamp.nanosec * 1e-9,roll, pitch, heading, yaw_vel))
 
     def listener_callback_tf(self):
         now = Time()
@@ -109,6 +120,17 @@ class OdometryRecorder(Node):
     def quaternion_to_yaw(self, orientation):
         # Convert quaternion to yaw (heading)
         # Roll, Pitch, Yaw
+
+        roll = math.atan2(2 * (orientation.w * orientation.x + orientation.y * orientation.z), 1 - 2 * (orientation.x ** 2 + orientation.y ** 2))
+        
+        # Pitch
+        pitch = math.asin(2 * (orientation.w * orientation.y - orientation.z * orientation.x))
+        
+        # Yaw
+        yaw = math.atan2(2 * (orientation.w * orientation.z + orientation.x * orientation.y), 1 - 2 * (orientation.y ** 2 + orientation.z ** 2))
+
+        return roll, pitch, yaw
+
         siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
         cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
         yaw = math.atan2(siny_cosp, cosy_cosp)
@@ -143,6 +165,22 @@ class OdometryRecorder(Node):
                     writer = csv.writer(file)
                     writer.writerow(["Time (s)", "X (m) odom_base", "Y (m) odom_base", "heading odom_base", "X (m) map_odom", "Y (m) map_odom", "heading map_odom"])
                     writer.writerows(self.tf_data)
+
+                    break
+
+        i=0
+        limit=100
+        while (i<(limit+2)):
+            if i==(limit+1):
+                raise NotImplementedError()
+            my_file = Path(f"{self.filepath}/{self.file_name}_imu_{i:03.0f}.csv")
+            if my_file.is_file():
+                i+=1
+            else:
+                with open(my_file, mode="w", newline="") as file:
+                    writer = csv.writer(file)
+                    writer.writerow(["Time (s)","roll imu", "pitch imu", "heading imu", "yaw vel"])
+                    writer.writerows(self.imu_data)
 
                     break
 
