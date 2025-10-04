@@ -3,7 +3,7 @@ import math
 import numpy as np
 class data_manager():
     def __init__(self):
-        pass
+        self.text_to_print=""
 
 
     def load_data(self, path):
@@ -47,14 +47,14 @@ class data_manager():
     def calculate_distance_moved(self, name, var_x, var_y):
         distances = np.sqrt(np.diff(self.df[var_x])**2 + np.diff(self.df[var_y])**2)
         total_dist=np.sum(distances)
-        print(f"in {name} has moved {total_dist}")
+        self.text_to_print+=f"in {name} has moved {total_dist}\n"
         return total_dist
     
     def calculate_error_dist(self, name, x_var, y_var):
         error_X=self.df[x_var].iloc[0]-self.df[x_var].iloc[-1]
         error_y=self.df[y_var].iloc[0]-self.df[y_var].iloc[-1]
         error_xy=math.sqrt(error_X**2+error_y**2)
-        print(f"in {name}: the errors are \n - X : {error_X} \n - Y : {error_y}\n - XY : {error_xy}")
+        self.text_to_print+=f"in {name}: the errors are \n - X : {error_X} \n - Y : {error_y}\n - XY : {error_xy}\n"
 
     def calculate_dist_along_heading(self, name, x_var, y_var , heading):
         
@@ -77,12 +77,18 @@ class data_manager():
             self.df.loc[i, 'sum_delta_x_local'] = self.df.loc[i-1, 'sum_delta_x_local'] + dx_local
             self.df.loc[i, 'sum_delta_y_local'] = self.df.loc[i-1, 'sum_delta_y_local'] + dy_local
 
-        print(f"solving differential for {name}")
-        print(f" - total long X : {self.df.loc[i-1, 'sum_delta_x_local']}")
-        print(f" - total long y : {self.df.loc[i-1, 'sum_delta_y_local']}")
+        self.text_to_print+=f"solving differential for {name}\n"
+        self.text_to_print+=f" - total long X : {self.df.loc[i-1, 'sum_delta_x_local']}\n"
+        self.text_to_print+=f" - total long y : {self.df.loc[i-1, 'sum_delta_y_local']}\n"
 
+    def write_text(self, name):
+        with open(f"{self.abs_path}{name}.info", "w") as f:
+            f.write(self.text_to_print)
+        print(self.text_to_print)
+        
+        
 mix=data_manager()
-fileN="003"
+fileN="000"
 mix.load_data(f"/openRMF_ws/src/tesi_code/result/data_odom_{fileN}.csv")
 mix.apply_heading_correction("heading")
 mix.save()
@@ -109,3 +115,5 @@ mix.remove_offset("updated_indeg_roll imu")
 mix.apply_heading_correction("pitch imu")
 mix.remove_offset("updated_indeg_pitch imu")
 mix.save()
+
+mix.write_text(fileN)
