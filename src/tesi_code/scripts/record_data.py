@@ -27,7 +27,8 @@ class OdometryRecorder(Node):
     def __init__(self):
         super().__init__("odometry_recorder")
         
-        self.declare_parameter("odom_topic", "/odometry/wheels")
+        self.declare_parameter("odom_topic", "/odom")
+        # self.declare_parameter("odom_topic", "/odometry/wheels")
         self.odom_topic = self.get_parameter("odom_topic").get_parameter_value().string_value
         
         self.declare_parameter("file_name", "data")
@@ -58,7 +59,8 @@ class OdometryRecorder(Node):
 
         self.timer = self.create_timer(0.25, self.listener_callback_tf)
 
-        self.imu_topic="/imu/data"
+        # self.imu_topic="/imu/data"
+        self.imu_topic="/arduino/imu_data_raw"
 
         self.subscription_test = self.create_subscription(
             Imu,

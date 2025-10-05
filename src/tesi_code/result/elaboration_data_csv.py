@@ -40,7 +40,10 @@ class data_manager():
 
     def sum(self, column_name_1, column_name_2):
         self.df[f'sum_{column_name_1}_{column_name_2}'] = self.df[column_name_1] + self.df[column_name_2]
-        
+    
+    def diff(self, column_name_1, column_name_2):
+        self.df[f'dif_{column_name_1}_{column_name_2}'] = self.df[column_name_1] - self.df[column_name_2]
+    
     def save(self):
         self.df.to_csv(f"{self.abs_path}update_{self.name}", index=False)
 
@@ -88,7 +91,7 @@ class data_manager():
         
         
 mix=data_manager()
-fileN="000"
+fileN="012"
 mix.load_data(f"/openRMF_ws/src/tesi_code/result/data_odom_{fileN}.csv")
 mix.apply_heading_correction("heading")
 mix.save()
@@ -102,10 +105,16 @@ mix.remove_offset("heading map_odom")
 mix.apply_heading_correction("rmOffSet_heading map_odom")
 mix.sum("X (m) odom_base","rmOffSet_X (m) map_odom")
 mix.sum("Y (m) odom_base","rmOffSet_Y (m) map_odom")
+mix.diff("X (m) odom_base","rmOffSet_X (m) map_odom")
+mix.diff("Y (m) odom_base","rmOffSet_Y (m) map_odom")
 mix.calculate_dist_along_heading("ekf_odom", "X (m) odom_base","Y (m) odom_base", "updated_indeg_heading odom_base")
 mix.save()
 mix.calculate_distance_moved("ekf_odom", "X (m) odom_base","Y (m) odom_base")
 mix.calculate_error_dist("ekf_odom", "X (m) odom_base","Y (m) odom_base")
+mix.calculate_distance_moved("amcl_odom", "dif_X (m) odom_base_rmOffSet_X (m) map_odom","dif_Y (m) odom_base_rmOffSet_Y (m) map_odom")
+mix.calculate_error_dist("amcl_odom", "dif_X (m) odom_base_rmOffSet_X (m) map_odom","dif_Y (m) odom_base_rmOffSet_Y (m) map_odom")
+mix.sum("updated_indeg_rmOffSet_heading map_odom","updated_indeg_heading odom_base")
+mix.diff("updated_indeg_rmOffSet_heading map_odom","updated_indeg_heading odom_base")
 
 mix.load_data(f"/openRMF_ws/src/tesi_code/result/data_imu_{fileN}.csv")
 mix.apply_heading_correction("heading imu")
