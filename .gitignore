@@ -3,4 +3,5 @@ install/
 log/
 rosbags/jobot/jobot_record_*
 rosbags/mini/mini_record_*
+src/tesi_code/result/data
 

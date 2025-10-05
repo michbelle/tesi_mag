@@ -82,6 +82,9 @@ docker run -it \
 
 # temp
 ```bash
+colcon build --symlink-install
+
+
 ros2 run rviz2 rviz2 -d /openRMF_ws/src/mini_rover_code/src/mini_launchpad/rviz/mini_nav.rviz
 
 ros2 bag play rosbags/mini/mini_record_007 --clock

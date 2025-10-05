@@ -91,7 +91,7 @@ class data_manager():
         
         
 mix=data_manager()
-fileN="012"
+fileN="004"
 mix.load_data(f"/openRMF_ws/src/tesi_code/result/data_odom_{fileN}.csv")
 mix.apply_heading_correction("heading")
 mix.save()
