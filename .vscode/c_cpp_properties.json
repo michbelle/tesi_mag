@@ -6,14 +6,14 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/root/ff_ws/install/jobot_driver_ros2/include/**",
-        "/root/ff_ws/install/serial/include/**",
-        "/root/ff_ws/install/jobot_msgs/include/**",
-        "/root/ff_ws/install/dstar_global_planner/include/**",
+        "/openRMF_ws/install/jobot_driver_ros2/include/**",
+        "/openRMF_ws/install/serial/include/**",
+        "/openRMF_ws/install/jobot_msgs/include/**",
+        "/openRMF_ws/install/dstar_global_planner/include/**",
         "/opt/ros/jazzy/include/**",
-        "/root/ff_ws/src/DStar_Trajectory_Planner/include/**",
-        "/root/ff_ws/src/jobot_driver_ros2/src/jobot_driver_ros2/include/**",
-        "/root/ff_ws/src/jobot_driver_ros2/src/serial-ros2/include/**",
+        "/openRMF_ws/src/DStar_Trajectory_Planner/include/**",
+        "/openRMF_ws/src/jobot_driver_ros2/src/jobot_driver_ros2/include/**",
+        "/openRMF_ws/src/jobot_driver_ros2/src/serial-ros2/include/**",
         "/usr/include/**"
       ],
       "name": "ROS",

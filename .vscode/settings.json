@@ -1,14 +1,8 @@
 {
-    "cmake.ignoreCMakeListsMissing": true,
     "python.autoComplete.extraPaths": [
-        "/root/ff_ws/install/jobot_msgs/lib/python3.12/site-packages",
         "/opt/ros/jazzy/lib/python/site-packages",
-        "/opt/ros/jazzy/lib/python3.12/site-packages"
+        "/opt/ros/jazzy/lib/python3.12/site-packages",
+        "/usr/local/lib/python3.12/dist-packages/",
+        "/openRMF_ws/install/jobot_msgs/lib/python3.12/site-packages"
     ],
-    "python.analysis.extraPaths": [
-        "/root/ff_ws/install/jobot_msgs/lib/python3.12/site-packages",
-        "/opt/ros/jazzy/lib/python/site-packages",
-        "/opt/ros/jazzy/lib/python3.12/site-packages"
-    ],
-    "ros.distro": "jazzy"
 }
