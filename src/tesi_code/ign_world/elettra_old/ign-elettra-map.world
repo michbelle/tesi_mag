@@ -45,7 +45,7 @@
         <scene>scene</scene>
         <ambient_light>0.4 0.4 0.4</ambient_light>
         <background_color>0.8 0.8 0.8</background_color>
-        <camera_pose>51.765582802609615 -95.52044338760415 10 0 0.6 1.57</camera_pose>
+        <camera_pose>73.71459581128748 -125.86166280361773 10 0 0.6 1.57</camera_pose>
       </plugin>
       <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
         <gz-gui>
@@ -251,8 +251,8 @@
       <pose>0 0 0.0 0 0 0</pose>
     </include>
     <rmf_charger_waypoints name="charger_waypoints">
-      <rmf_vertex name="T2PT071_charge" x="51.4765822943978" y="-59.531601655877175" level="PT" />
-      <rmf_vertex name="dispensa_charge" x="41.595548289313086" y="-70.56308095443417" level="PT" />
+      <rmf_vertex name="T2PT071_charge" x="72.96330894270618" y="-84.38055616494573" level="PT" />
+      <rmf_vertex name="dispensa_charge" x="58.95785433301189" y="-100.016660899958" level="PT" />
     </rmf_charger_waypoints>
   </world>
 </sdf>

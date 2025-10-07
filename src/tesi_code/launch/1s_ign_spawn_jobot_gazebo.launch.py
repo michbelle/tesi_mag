@@ -53,8 +53,8 @@ def generate_launch_description():
             "-topic", f"/robot_description",
             "-name", f"{robot_name}",
             # "-allow_renaming", "true",
-            "-x", "43.02",
-            "-y","-81.63",
+            "-x", "40.49",
+            "-y","-78.56",
             "-z", "0.1",
         ]
     )
