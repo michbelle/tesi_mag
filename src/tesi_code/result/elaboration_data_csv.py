@@ -91,7 +91,7 @@ class data_manager():
         
         
 mix=data_manager()
-fileN="004"
+fileN="000"
 mix.load_data(f"/openRMF_ws/src/tesi_code/result/data_odom_{fileN}.csv")
 mix.apply_heading_correction("heading")
 mix.save()
@@ -102,6 +102,9 @@ mix.apply_heading_correction("heading odom_base")
 mix.remove_offset("X (m) map_odom")
 mix.remove_offset("Y (m) map_odom")
 mix.remove_offset("heading map_odom")
+mix.remove_offset("X (m) map_base_link")
+mix.remove_offset("Y (m) map_base_link")
+mix.remove_offset("heading map_base_link")
 mix.apply_heading_correction("rmOffSet_heading map_odom")
 mix.sum("X (m) odom_base","rmOffSet_X (m) map_odom")
 mix.sum("Y (m) odom_base","rmOffSet_Y (m) map_odom")
@@ -113,6 +116,7 @@ mix.calculate_distance_moved("ekf_odom", "X (m) odom_base","Y (m) odom_base")
 mix.calculate_error_dist("ekf_odom", "X (m) odom_base","Y (m) odom_base")
 mix.calculate_distance_moved("amcl_odom", "dif_X (m) odom_base_rmOffSet_X (m) map_odom","dif_Y (m) odom_base_rmOffSet_Y (m) map_odom")
 mix.calculate_error_dist("amcl_odom", "dif_X (m) odom_base_rmOffSet_X (m) map_odom","dif_Y (m) odom_base_rmOffSet_Y (m) map_odom")
+mix.calculate_error_dist("amcl_odom_2", "rmOffSet_X (m) map_base_link","rmOffSet_Y (m) map_base_link")
 mix.sum("updated_indeg_rmOffSet_heading map_odom","updated_indeg_heading odom_base")
 mix.diff("updated_indeg_rmOffSet_heading map_odom","updated_indeg_heading odom_base")
 

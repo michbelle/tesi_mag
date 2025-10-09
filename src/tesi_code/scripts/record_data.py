@@ -27,8 +27,8 @@ class OdometryRecorder(Node):
     def __init__(self):
         super().__init__("odometry_recorder")
         
-        self.declare_parameter("odom_topic", "/odom")
-        # self.declare_parameter("odom_topic", "/odometry/wheels")
+        # self.declare_parameter("odom_topic", "/odom")
+        self.declare_parameter("odom_topic", "/odometry/wheels")
         self.odom_topic = self.get_parameter("odom_topic").get_parameter_value().string_value
         
         self.declare_parameter("file_name", "data")
@@ -59,8 +59,8 @@ class OdometryRecorder(Node):
 
         self.timer = self.create_timer(0.25, self.listener_callback_tf)
 
-        # self.imu_topic="/imu/data"
-        self.imu_topic="/arduino/imu_data_raw"
+        self.imu_topic="/imu/data"
+        # self.imu_topic="/arduino/imu_data_raw"
 
         self.subscription_test = self.create_subscription(
             Imu,
@@ -108,6 +108,20 @@ class OdometryRecorder(Node):
         try:
             tf_map_odom = self.tf_buffer.lookup_transform(
                 'map', 'odom', now
+            )
+            pos = tf_map_odom.transform.translation
+            rot = tf_map_odom.transform.rotation
+            quat = [rot.x, rot.y, rot.z, rot.w]
+            roll, pitch, yaw = euler_from_quaternion(quat)
+            data_map_odom=[pos.x , pos.y, yaw]
+        except TransformException as ex:
+            self.get_logger().warn(f'Could not get map->odom: {ex}')
+        
+        data_odom_base_link.extend(data_map_odom)
+        
+        try:
+            tf_map_odom = self.tf_buffer.lookup_transform(
+                'map', 'base_link', now
             )
             pos = tf_map_odom.transform.translation
             rot = tf_map_odom.transform.rotation
@@ -165,7 +179,7 @@ class OdometryRecorder(Node):
             else:
                 with open(my_file, mode="w", newline="") as file:
                     writer = csv.writer(file)
-                    writer.writerow(["Time (s)", "X (m) odom_base", "Y (m) odom_base", "heading odom_base", "X (m) map_odom", "Y (m) map_odom", "heading map_odom"])
+                    writer.writerow(["Time (s)", "X (m) odom_base", "Y (m) odom_base", "heading odom_base", "X (m) map_odom", "Y (m) map_odom", "heading map_odom", "X (m) map_base_link", "Y (m) map_base_link", "heading map_base_link"])
                     writer.writerows(self.tf_data)
 
                     break
