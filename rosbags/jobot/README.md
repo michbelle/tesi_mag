@@ -28,22 +28,26 @@ avaible topics
 record
 ```bash
 ros2 bag record \
-    -o record_007 \
-    /imu/data \
-    /joint_states \
-    /magnetometer \
-    /odometry/wheels \
-    /orientation \
+    -b 1000000000 \
+    --compression-mode file \
+    -o jobot_record_002 \
+    /bond \
+    /serial_status \
+    /diagnostics \
+    /cmd_vel \
     /parameter_events \
-    /robot_description \
-    /robot_info \
-    /robot_status \
-    /rover_mini/battery_status \
-    /scan \
-    /temperature \
+    /joint_states \
+    /uls_debug \
     /tf \
+    /arduino/imu_data_raw \
+    /scan \
+    /jobot_driver_ros2/transition_event \
+    /robot_description \
     /tf_static \
-    /trim_event 
+    /covariance \
+    /odom \
+    /battery_capacity \
+    /current
 ```
 
 
