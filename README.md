@@ -1,14 +1,34 @@
-# Tesi laurea magistrale
+# my master's thesis
 
-## Mini
+Creation of two AMRs using ROS (one in Humble and the other in Jazzy) for moving objects within Elettra Sincrotrone Trieste using the fleet manager Open-RMF
 
-basato su humble
+### Folder structure
 
-## resto basato su jazzy
+```bash
+.
+├── .devcontainer # docker instruction 
+├── 000_sequence # sequence of commands to launch 
+├── rosbags # information of how the data were recorder 
+│   ├── jobot
+│   ├── mini
+│   └── results #TODO
+├── src # each code used in this thesis
+│   ├── DStar_Trajectory_Planner # planner ported from ROS 1 to ROS 2
+│   ├── jobot_driver_ros2 # used to control for the jobot AMR in jazzy ported from ROS 1 to ROS 2 
+│   ├── mini_rover_code # used to control of the Mini AMR in humble (simulation available in jazzy)
+│   ├── rmf_server # to control the fleets of the AMR  based on Open-RMF
+│   └── tesi_code # that launch each part of the other folders
+└── testo # "documentation"
+```
 
-### git dowload
 
-if the first time you need to launch
+### Download
+
+```bash
+git clone --recurse-submodules 
+```
+
+if downloaded without recursive the first time you need to launch
 
 ```bash
 git submodule update --init --recursive
@@ -20,20 +40,17 @@ else
 git submodule update --recursive --remote
 ```
 
-```bash
-git pull --recurse-submodules
-```
-
-
-## build comand
+## Build code
 
 ```bash
 colcon build --symlink-install
 ```
 
-### devcontainer
+### Build docker image
 
-start ssh agent
+This build a docker image with all the code, ready to play:
+
+if need ssh agent
 ```bash
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ecdsa
@@ -50,6 +67,8 @@ share x with:
 ```bash
 xhost local:root
 ```
+
+if launch without VScode extensions
 
 ```bash
 docker run -it \
@@ -73,23 +92,10 @@ docker run -it \
         bash
 ```
 
+If the PC has an nvidia GPU, it can be connected to the docker image
+
 ```bash
         --runtime=nvidia
         --runtime=nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all \
 
-```
-
-
-# temp
-```bash
-colcon build --symlink-install
-
-
-ros2 run rviz2 rviz2 -d /openRMF_ws/src/mini_rover_code/src/mini_launchpad/rviz/mini_nav.rviz
-
-ros2 bag play rosbags/mini/mini_record_007 --clock
-
-ros2 launch mini_launchpad Snav2_global.launch.py
-
-ros2 run tesi_code record_data.py
 ```
